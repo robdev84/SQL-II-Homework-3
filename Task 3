@@ -1,0 +1,63 @@
+
+B. Creating an index to make this query faster - select count(distinct first_name) from address a inner join people p on p.id = a.person_id where a.state = 'IL';
+
+Target timings and rows to aim for:
+2b: 0.001 sec, 72 + 1 r_rows
+
+It does not show the time that it takes. 
+
+Results
+
+table p
+possible_keys = NULL
+key = NULL
+key_len = NULL
+ref = NULL
+rows = 1000
+r_rows = 1000
+filtered = 100
+r_filtered = 100
+
+table a
+possible_keys = NULL
+key = NULL
+key_len = NULL
+ref = NULL
+rows = 3000
+r_rows = 3000
+filtered = 100
+r_filtered = 0
+
+Let's try this
+
+create or replace index name_idx on people(id);
+
+table p
+possible_keys = name_idx
+key = name_idx
+key_len = 5
+ref = rnagel3.a.person_id
+rows = 1
+r_rows = 1
+filtered = 100
+r_filtered = 100
+
+and
+
+create or replace index state_idx on address(person_id); - ok, that didn't do anything. 
+
+Let's try 
+
+create or replace index state_idx on address(state);
+
+table a
+possible_keys = state_idx
+key = state_idx
+key_len = 53
+ref = const
+rows = 72
+r_rows = 72
+filtered = 100
+r_filtered = 100
+
+I am not sure if this improved the performance, but I think it did!
