@@ -1,0 +1,27 @@
+Tasks
+1. 
+Copy tables to your schema:
+create table light_history as (select * from homework3.light_history);
+create table lights as (select * from homework3.lights);
+create table people as (select * from homework3.people);
+create table address as (select * from homework3.address);
+create table phone as (select * from homework3.phone);
+
+2.
+Create one or more indexes to improve the following queries; prove that your index improves performance (using the "analyze" command):
+a. select on_flag, count(*) from light_history where datetime = '2016-01-01 00:01:00' group by on_flag; 
+b. select count(distinct first_name) from address a inner join people p on p.id = a.person_id where a.state = 'IL';
+c. Two more queries we come up with in class (March 14th) - will be added here after class
+
+3. 
+Target timings and rows to aim for:
+- 2a: 0.003 sec, 2002 r_rows
+- 2b: 0.001 sec, 72 + 1 r_rows
+- March 14th in-class example: 0.028 sec, 3033 + 1 r_rows
+
+4.
+Examples from March 7 and March 14 classes will be available here
+March 7th google "live" notes
+March 14th google "live" notes
+For March 14th:
+select sum(watts) from light_history h inner join lights l on h.light_id = l.light_id  where h.on_flag = 1 and datetime in ('2016-01-01 00:10:00','2016-01-01 00:20:00','2016-01-01 00:30:00');
