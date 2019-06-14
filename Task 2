@@ -4,3 +4,34 @@ a. select on_flag, count(*) from light_history where datetime = '2016-01-01 00:0
 b. select count(distinct first_name) from address a inner join people p on p.id = a.person_id where a.state = 'IL';
 c. Two more queries we come up with in class (March 14th) - will be added here after class
 
+select on_flag, count(*) from light_history where datetime = '2016-01-01 00:01:00' group by on_flag; 
+
+analyze select on_flag, count(*) from light_history where datetime = '2016-01-01 00:01:00' group by on_flag;
+
+Results
+
+possible_keys = NULL
+key = NULL
+key_len = NULL
+ref = NULL
+Rows = 10157
+r_rows = 10000
+filtered = 100
+r_filtered = 20.02
+
+*******
+
+create or replace index light_history_idx on light_history(datetime);
+
+This took it down to 0.0072 seconds. Second run took it down to 0.0005 seconds! Subsequent runs stayed at 0.0072 seconds. 
+
+Results
+
+possible_keys = light_history_idx
+key = light_history_idx
+key_len = 6
+ref = const
+Rows = 2002
+r_rows = 2002
+filtered = 100
+r_filtered = 100
