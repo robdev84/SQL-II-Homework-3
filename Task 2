@@ -4,6 +4,10 @@ a. select on_flag, count(*) from light_history where datetime = '2016-01-01 00:0
 b. select count(distinct first_name) from address a inner join people p on p.id = a.person_id where a.state = 'IL';
 c. Two more queries we come up with in class (March 14th) - will be added here after class
 
+Target timings and rows to aim for:
+- 2a: 0.003 sec, 2002 r_rows
+- 2b: 0.001 sec, 72 + 1 r_rows
+
 select on_flag, count(*) from light_history where datetime = '2016-01-01 00:01:00' group by on_flag; 
 
 analyze select on_flag, count(*) from light_history where datetime = '2016-01-01 00:01:00' group by on_flag;
