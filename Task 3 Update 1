@@ -1,0 +1,8 @@
+INDEX 1
+create or replace index name_idx on people(id);
+
+INDEX 2
+create or replace index state_idx on address(state);
+
+Analyze 
+select count(distinct first_name) from address a inner join people p on p.id = a.person_id where a.state = 'IL';
