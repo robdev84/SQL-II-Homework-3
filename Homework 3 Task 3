@@ -2,3 +2,5 @@ Create one or more indexes to improve the following queries; prove that your ind
 
 For March 14th:
 select sum(watts) from light_history h inner join lights l on h.light_id = l.light_id  where h.on_flag = 1 and datetime in ('2016-01-01 00:10:00','2016-01-01 00:20:00','2016-01-01 00:30:00');
+
+Target timings and rows to aim for: 0.028 sec, 3033 + 1 r_rows
