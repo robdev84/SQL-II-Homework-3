@@ -1,0 +1,3 @@
+drop INDEX light_id_idx on lights
+
+analyze select sum(watts) from light_history h inner join lights l on h.light_id = l.light_id  where h.on_flag = 1 and datetime in ('2016-01-01 00:10:00','2016-01-01 00:20:00','2016-01-01 00:30:00');
