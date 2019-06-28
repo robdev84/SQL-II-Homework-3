@@ -1,0 +1,39 @@
+
+
+analyze select sum(watts) from light_history h inner join lights l on h.light_id = l.light_id  where h.on_flag = 1 and datetime in ('2016-01-01 00:10:00','2016-01-01 00:20:00','2016-01-01 00:30:00');
+
+Show picture Homework 3, Task 3, Picture 1
+
+Now create index 1:
+create index light_id_idx on lights(light_id); 
+-Reanalyze - 
+analyze select sum(watts) from light_history h inner join lights l on h.light_id = l.light_id  where h.on_flag = 1 and datetime in ('2016-01-01 00:10:00','2016-01-01 00:20:00','2016-01-01 00:30:00');
+-Show Homework 3, Task 3, Picture 2-
+
+Create index 2:
+create index light_id_idx on light_history(light_id, on_flag);
+-Reanalyze-
+analyze select sum(watts) from light_history h inner join lights l on h.light_id = l.light_id  where h.on_flag = 1 and datetime in ('2016-01-01 00:10:00','2016-01-01 00:20:00','2016-01-01 00:30:00');
+-Show Homework 3, Task 3, Picture 3-
+
+Results
+With no index, we see:
+lights table : 2022 rows and 2023 r_rows
+light_history table: 10157 rows and 10023 r_rows
+Time: 0.0130
+
+After Index 1, we see: 
+lights table: 1 row and NULL r_rows
+light_history table: 10157 rows and 10023 r_rows
+Time: 0.0117 seconds
+
+After Index 2, we see: 
+lights table: 1 row and 2.5 r_rows
+light_history table: 2022 rows and 2023 r_rows
+Time: 0.0325 seconds
+
+Explanation:
+In the query without an index, the number of r_rows the query returns is much higher than after Index 1 and Index 2. 
+
+With the indexes, the query has to search fewer rows to get to the pointer that points to the information, thus making the process more efficient. As far as time, the query with the 2 indexes took the longest. 
+
