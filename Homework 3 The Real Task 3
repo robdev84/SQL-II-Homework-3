@@ -4,3 +4,13 @@ For March 14th:
 select sum(watts) from light_history h inner join lights l on h.light_id = l.light_id  where h.on_flag = 1 and datetime in ('2016-01-01 00:10:00','2016-01-01 00:20:00','2016-01-01 00:30:00');
 
 Target timings and rows to aim for: 0.028 sec, 3033 + 1 r_rows
+
+create index light_id_idx on lights(light_id); 
+analyze select sum(watts) from light_history h inner join lights l on h.light_id = l.light_id  where h.on_flag = 1;
+
+Seems to help one of the tables
+
+create index light_id_idx on light_history(light_id); 
+
+drop index light_id_idx on light_history; 
+create index light_id_idx on light_history(light_id, on_flag);
