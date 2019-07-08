@@ -6,7 +6,7 @@ for each row
 
 BEGIN
 
-insert into plant_inventory values (current_date, new.plant_id, 'insert', new.price, new.quantity);
+insert into plant_inventory values (current_date, new.plant_id, 'insert', new.cost, new.quantity);
 
 end;
 //
