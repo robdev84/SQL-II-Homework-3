@@ -19,7 +19,7 @@ for each row
 
 BEGIN
 
-insert into plant_inventory values (X, X);
+insert into plant_inventory values (current_date, plant_id, 'update', new.cost, new.quantity);
 
 end;
 //
@@ -32,7 +32,7 @@ for each row
 
 BEGIN
 
-insert into plant_inventory values (, X);
+insert into plant_inventory values (current_date, plant_id, 'delete', cost, quantity);
 
 end;
 //
