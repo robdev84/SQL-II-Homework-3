@@ -1,0 +1,38 @@
+Homework 4 - Task 3: Create three triggers to audit changes to the plants table (one trigger each for INSERT, UPDATE, DELETE)
+
+create or replace trigger air_plants_audit
+after insert on rnagel3.plants
+for each row
+
+BEGIN
+
+insert into plant_inventory values (current_timestamp, new.plant_id, 'insert', new.price, new.quantity);
+
+end;
+//
+
+***Trigger for Update***
+
+create or replace trigger aur_plants_audit
+after update on rnagel3.plants
+for each row
+
+BEGIN
+
+insert into plant_inventory values (X, X);
+
+end;
+//
+
+***Trigger for Delete***
+
+create or replace trigger adr_plants_audit
+after delete on rnagel3.plants
+for each row
+
+BEGIN
+
+insert into plant_inventory values (, X);
+
+end;
+//
