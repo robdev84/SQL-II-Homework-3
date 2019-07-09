@@ -1,15 +1,36 @@
 Homework 4 - Task 3: Create three triggers to audit changes to the plants table (one trigger each for INSERT, UPDATE, DELETE)
 
+To just enter a line into the table - insert into plant_inventory VALUES (CURRENT_DATE, 10, 'u', 10, 10);
+
+I learned that the insert, update, or delete record will be only the first letter (ex. i, u, d).
+
 create or replace trigger air_plants_audit
 after insert on rnagel3.plants
 for each row
 
 BEGIN
 
-insert into plant_inventory values (current_date, plant_id, 'insert', new.cost, new.quantity);
+insert into plant_inventory values (current_timestamp, plant_id, 'i', new.cost, new.quantity);
 
 end;
 //
+
+*******ANOTHER ATTEMPT*******
+
+create or replace trigger air_plants_audit
+after insert on rnagel3.plants
+for each row
+
+BEGIN
+declare new_plant_id int;
+select plant_id into new_plant_id from new;
+
+insert into plant_inventory values (current_date, plant_id, 'i', new.cost, new.quantity);
+
+end;
+//
+
+*******************************
 
 ***Trigger for Update***
 
@@ -19,7 +40,7 @@ for each row
 
 BEGIN
 
-insert into plant_inventory values (current_date, plant_id, 'update', new.cost, new.quantity);
+insert into plant_inventory values (current_date, plant_id, 'u', new.cost, new.quantity);
 
 end;
 //
@@ -32,7 +53,7 @@ for each row
 
 BEGIN
 
-insert into plant_inventory values (current_date, plant_id, 'delete', cost, quantity);
+insert into plant_inventory values (current_date, plant_id, 'd', cost, quantity);
 
 end;
 //
