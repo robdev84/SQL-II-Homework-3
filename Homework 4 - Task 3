@@ -15,22 +15,6 @@ insert into plant_inventory values (current_timestamp, new.id, 'i', new.cost, ne
 end;
 //
 
-*******ANOTHER ATTEMPT*******
-
-create or replace trigger air_plants_audit
-after insert on rnagel3.plants
-for each row
-
-BEGIN
-declare new_plant_id int;
-select plant_id into new_plant_id from new;
-
-insert into plant_inventory values (current_date, plant_id, 'i', new.cost, new.quantity);
-
-end;
-//
-
-*******************************
 
 ***Trigger for Update***
 
@@ -40,7 +24,7 @@ for each row
 
 BEGIN
 
-insert into plant_inventory values (current_date, plant_id, 'u', new.cost, new.quantity);
+insert into plant_inventory values (current_timestamp, new.id, 'u', new.cost, new.quantity);
 
 end;
 //
@@ -48,12 +32,12 @@ end;
 ***Trigger for Delete***
 
 create or replace trigger adr_plants_audit
-after delete on rnagel3.plants
+AFTER delete on rnagel3.plants
 for each row
 
 BEGIN
 
-insert into plant_inventory values (current_date, plant_id, 'd', cost, quantity);
+insert into plant_inventory values (current_timestamp, old.id, 'd', old.cost, old.quantity);
 
 end;
 //
