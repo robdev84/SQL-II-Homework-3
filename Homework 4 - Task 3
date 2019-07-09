@@ -10,7 +10,7 @@ for each row
 
 BEGIN
 
-insert into plant_inventory values (current_timestamp, plant_id, 'i', new.cost, new.quantity);
+insert into plant_inventory values (current_timestamp, new.id, 'i', new.cost, new.quantity);
 
 end;
 //
